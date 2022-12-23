@@ -4,7 +4,7 @@ export async function getRanking(req, res) {
   const linksCount = await connection.query(`
     SELECT u.id, u.name, COUNT(*) as "linksCount", SUM("visitCount") as "visitCount"
     FROM urls ur
-    JOIN users u ON ur."userId" = u.id
+    LEFT JOIN users u ON ur."userId" = u.id
     GROUP BY u.id
     ORDER BY "visitCount" DESC;
   `);
